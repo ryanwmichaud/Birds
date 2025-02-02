@@ -1,0 +1,16 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.choice{
+  background-color: lightcoral;
+  margin: 0.25em;
+  min-width: 20em;
+}
+
+.correct{
+  background-color: lightgreen;
+}

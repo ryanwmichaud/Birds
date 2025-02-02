@@ -1,0 +1,9 @@
+tables
+
+
+audio
+
+string species
+string path
+string notes
+string/categorical/int difficulty
