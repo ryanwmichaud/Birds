@@ -1,5 +1,6 @@
 .DS_Store
 
+#BACKEND 
 
 backend/.venv/
 backend/audio/*
@@ -7,7 +8,8 @@ backend/images/*
 backend/.env
 
 
-#frontend
+#FRONT END 
+
 # Logs
 frontend/logs
 frontend/*.log

@@ -3,3 +3,12 @@ fast api venv
     fastapi dev main.py
 
 http://127.0.0.1:8000/
+
+
+
+dont use dom... doc.getbyid...
+maybe move handle click out of src
+make it easily unit testable
+less global state
+
+have buttons use state object for classes
