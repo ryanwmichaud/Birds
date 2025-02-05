@@ -6,11 +6,19 @@
 }
 
 .choice{
-  background-color: lightcoral;
+  background-color: lightgrey;
   margin: 0.25em;
-  min-width: 20em;
+  max-width: 200px;
 }
-
+.choice-image{
+  max-width: 100%;
+  height: auto;
+}
 .correct{
   background-color: lightgreen;
 }
+
+.incorrect{
+ background-color: lightcoral;
+}
+
