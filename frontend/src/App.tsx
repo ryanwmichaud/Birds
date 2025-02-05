@@ -4,32 +4,43 @@ import {Choice} from './components/Choice'
 import {Sound} from './components/Sound'
 
 function App() {
+
+
   
   const birds = ["American Robin", "Northern Cardinal", "House Sparrow", "House Finch", "Mourning Dove"] 
-  const [answer, setAnswer] = useState<string>(birds[Math.floor(Math.random()*birds.length)])        
+  const [answer, setAnswer] = useState<string>(birds[Math.floor(Math.random()*birds.length)])    
+  const [fileNum, setFileNum] = useState<number>(Math.floor(Math.random() * 6))
   const [isCorrect, setIsCorrect] = useState<boolean>(false)
 
-  const handleAnswerClick = (name: string)=>{
-    console.log(name===answer)
-    if(name === answer){
+  const handleAnswerClick = (choiceName: string, e: React.MouseEvent<HTMLButtonElement>)=>{
+    const button = e.currentTarget as HTMLButtonElement;
+
+    if(choiceName === answer){
       setIsCorrect(true)
+      button.classList.add("correct")
       return true
     }else{
-      console.log(answer)
+  
+      button.classList.add("incorrect")
       return false
 
     }
 
   }
 
+  
+
   return (
     <>
-     <Sound answer={answer} isCorrect={isCorrect} setIsCorrect={setIsCorrect} 
-     setAnswer={setAnswer} birds={birds}>
+
+
+    
+     <Sound answer={answer} fileNum={fileNum} isCorrect={isCorrect} setIsCorrect={setIsCorrect} 
+     setAnswer={setAnswer} setFileNum={setFileNum} birds={birds}>
       </Sound> 
       <div className='choices'>
-        {birds.map((name, index)=>{
-                      return <Choice name={name} handleAnswerClick={handleAnswerClick} key={index}></Choice>
+        {birds.map((choiceName, index)=>{
+                      return <Choice choiceName={choiceName} handleAnswerClick={handleAnswerClick} key={index}></Choice>
                     }
           )}
       </div>
