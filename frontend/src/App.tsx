@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import {Choice} from './components/Choice'
 import {Sound} from './components/Sound'
@@ -8,14 +8,18 @@ function App() {
 
   
   const birds = ["American Robin", "Northern Cardinal", "House Sparrow", "House Finch", "Mourning Dove"] 
-  const [answer, setAnswer] = useState<string>(birds[Math.floor(Math.random()*birds.length)])    
-  const [fileNum, setFileNum] = useState<number>(Math.floor(Math.random() * 6))
+
   const [isCorrect, setIsCorrect] = useState<boolean>(false)
-  const [answerStates, setAnswerStates] = useState<{[key: string]: string}>({})
+  const [choiceClasses, setChoiceClasses] = useState<{[key: string]: string}>({})
+  const [activeBirds, setActiveBirds] = useState<Set<string>>(new Set(["House Finch","House Sparrow"]))
+  const [answer, setAnswer] = useState<string>(Array.from(activeBirds)[Math.floor(Math.random()*activeBirds.size)])    
+  const [fileNum, setFileNum] = useState<number>(Math.floor(Math.random() * 6))
+  console.log(activeBirds.size)
+  console.log(answer, fileNum)
 
   const handleAnswerClick = (choiceName: string, e: React.MouseEvent<HTMLButtonElement>)=>{
 
-    setAnswerStates((prev)=>({
+    setChoiceClasses((prev)=>({
       ...prev, 
       [choiceName]: (choiceName === answer ? 'correct' : 'incorrect')
     }))
@@ -29,39 +33,66 @@ function App() {
 
   }
 
+  const newQuestion = ()=>{
+    setIsCorrect(false)
+    setAnswer(Array.from(activeBirds)[Math.floor(Math.random()*activeBirds.size)])
+    setFileNum( Math.floor(Math.random() * 6))
+    setChoiceClasses({})
+  }
+
   const handleSoundClick = ()=>{
     if(isCorrect){
-        setIsCorrect(false)
-        setAnswer(birds[Math.floor(Math.random()*birds.length)])
-        setFileNum( Math.floor(Math.random() * 6))
-        setAnswerStates({})
+      newQuestion()
     }else{
         
     }
-}
+  }
+
+  useEffect(()=>{
+    newQuestion()
+  }, [activeBirds])
 
   
 
   
 
   return (
-    <>
-
-
-    
-    <Sound answer={answer} fileNum={fileNum} isCorrect={isCorrect} handleSoundClick={handleSoundClick} >
-    </Sound> 
-      <div className='choices'>
-        {birds.map((choiceName, index)=>{
-                      return <Choice choiceName={choiceName} 
-                      className={`choice ${answerStates[choiceName] || ''}`}
-                      handleAnswerClick={handleAnswerClick} 
-                      key={index} ></Choice>
-                    }
-        )}
+    <div className='main'>
+      <div className='options'>
+        {birds.map((birdName, index)=>{
+          return (<button className={`option ${activeBirds.has(birdName) ? 'active' : 'inactive'}`}
+            key={index}
+            onClick={()=>{
+             setActiveBirds((prevSet)=>{
+                  const newSet = new Set(prevSet)
+                  if (newSet.has(birdName)){
+                    newSet.delete(birdName)
+                  }else{
+                    newSet.add(birdName)
+                  }
+                  return newSet
+                })
+            }}>
+            {birdName}
+          </button>)
+        })} 
       </div>
-
-    </>
+      <div>
+        <Sound 
+          answer={answer} fileNum={fileNum} 
+          isCorrect={isCorrect} handleSoundClick={handleSoundClick} >
+        </Sound> 
+        <div className='choices'>
+          {Array.from(activeBirds).map((choiceName, index)=>{
+                        return <Choice choiceName={choiceName} 
+                        className={`choice ${choiceClasses[choiceName] || ''}`}
+                        handleAnswerClick={handleAnswerClick} 
+                        key={index} ></Choice>
+                      }
+          )}
+        </div>
+      </div>
+    </div>
   )
 
 }
