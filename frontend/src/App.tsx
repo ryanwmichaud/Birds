@@ -11,22 +11,36 @@ function App() {
   const [answer, setAnswer] = useState<string>(birds[Math.floor(Math.random()*birds.length)])    
   const [fileNum, setFileNum] = useState<number>(Math.floor(Math.random() * 6))
   const [isCorrect, setIsCorrect] = useState<boolean>(false)
+  const [answerStates, setAnswerStates] = useState<{[key: string]: string}>({})
 
   const handleAnswerClick = (choiceName: string, e: React.MouseEvent<HTMLButtonElement>)=>{
-    const button = e.currentTarget as HTMLButtonElement;
 
+    setAnswerStates((prev)=>({
+      ...prev, 
+      [choiceName]: (choiceName === answer ? 'correct' : 'incorrect')
+    }))
     if(choiceName === answer){
       setIsCorrect(true)
-      button.classList.add("correct")
       return true
     }else{
-  
-      button.classList.add("incorrect")
-      return false
+        return false
 
     }
 
   }
+
+  const handleSoundClick = ()=>{
+    if(isCorrect){
+        setIsCorrect(false)
+        setAnswer(birds[Math.floor(Math.random()*birds.length)])
+        setFileNum( Math.floor(Math.random() * 6))
+        setAnswerStates({})
+    }else{
+        
+    }
+}
+
+  
 
   
 
@@ -35,14 +49,16 @@ function App() {
 
 
     
-     <Sound answer={answer} fileNum={fileNum} isCorrect={isCorrect} setIsCorrect={setIsCorrect} 
-     setAnswer={setAnswer} setFileNum={setFileNum} birds={birds}>
-      </Sound> 
+    <Sound answer={answer} fileNum={fileNum} isCorrect={isCorrect} handleSoundClick={handleSoundClick} >
+    </Sound> 
       <div className='choices'>
         {birds.map((choiceName, index)=>{
-                      return <Choice choiceName={choiceName} handleAnswerClick={handleAnswerClick} key={index}></Choice>
+                      return <Choice choiceName={choiceName} 
+                      className={`choice ${answerStates[choiceName] || ''}`}
+                      handleAnswerClick={handleAnswerClick} 
+                      key={index} ></Choice>
                     }
-          )}
+        )}
       </div>
 
     </>
