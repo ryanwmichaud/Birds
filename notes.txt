@@ -9,6 +9,7 @@ fast api venv
 make it easily unit testable
 less global state
 
+python3 -m venv ./venv
 source .venv/bin/activate
 fastapi dev
 
