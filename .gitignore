@@ -3,8 +3,8 @@
 #BACKEND 
 
 backend/.venv/
-backend/audio/*
-backend/images/*
+#backend/audio/*
+#backend/images/*
 backend/.env
 
 
