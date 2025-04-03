@@ -4,11 +4,8 @@ import {Choice} from './components/Choice'
 import {Sound} from './components/Sound'
 
 function App() {
-
-
   
   const birds = ["American Robin", "Northern Cardinal", "House Sparrow", "House Finch", "Mourning Dove"] 
-
   const [isCorrect, setIsCorrect] = useState<boolean>(false)
   const [choiceClasses, setChoiceClasses] = useState<{[key: string]: string}>({})
   const [activeBirds, setActiveBirds] = useState<Set<string>>(new Set(["House Finch","House Sparrow"]))
