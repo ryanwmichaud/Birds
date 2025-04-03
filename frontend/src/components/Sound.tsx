@@ -14,7 +14,7 @@ export const Sound = ({answer, fileNum, isCorrect, handleSoundClick}: SoundProps
     }, [answer, fileNum])
 
 
-    const path = `http://localhost:8000/audio/${encodeURIComponent(answer)}/${fileNum}.mp3`
+    const path = `http://localhost:8001/audio/${encodeURIComponent(answer)}/${fileNum}.mp3`
 
     
 
