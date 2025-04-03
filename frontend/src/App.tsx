@@ -14,7 +14,7 @@ function App() {
   console.log(activeBirds.size)
   console.log(answer, fileNum)
 
-  const handleAnswerClick = (choiceName: string, e: React.MouseEvent<HTMLButtonElement>)=>{
+  const handleAnswerClick = (choiceName: string )=>{
 
     setChoiceClasses((prev)=>({
       ...prev, 
