@@ -7,6 +7,7 @@ export interface SoundProps {
     handleSoundClick: ()=> void
 }
 
+const urlBase = import.meta.env.VITE_URL_BASE
 export const Sound = ({answer, fileNum, isCorrect, handleSoundClick}: SoundProps)=>{
 
     useEffect(()=>{
@@ -14,7 +15,7 @@ export const Sound = ({answer, fileNum, isCorrect, handleSoundClick}: SoundProps
     }, [answer, fileNum])
 
 
-    const path = `http://localhost:8001/audio/${encodeURIComponent(answer)}/${fileNum}.mp3`
+    const path = `${urlBase}/audio/${encodeURIComponent(answer)}/${fileNum}.mp3`
 
     
 
