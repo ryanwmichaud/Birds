@@ -6,10 +6,12 @@ export interface ChoiceProps {
 }
 
 
+const urlBase = import.meta.env.VITE_URL_BASE 
+
 export const Choice = ({choiceName, handleAnswerClick, className}: ChoiceProps)=> {
 
 
-    const imgPath = `http://localhost:8001/images/${encodeURIComponent(choiceName)}.jpg`
+    const imgPath = `${urlBase}/images/${encodeURIComponent(choiceName)}.jpg`
 
     return <button className={className} onClick={(e)=>handleAnswerClick(choiceName, e)}>
             <img src={imgPath} alt={choiceName} className="choice-image"></img>
