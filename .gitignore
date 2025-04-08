@@ -5,10 +5,10 @@
 backend/.venv/
 #backend/audio/*
 #backend/images/*
-backend/.env
+backend/venv
+backend/.venv
 
-
-#FRONT END 
+#FRONTEND 
 
 # Logs
 frontend/logs
