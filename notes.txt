@@ -9,8 +9,23 @@ fast api venv
 make it easily unit testable
 less global state
 
-python3 -m venv ./venv
-source .venv/bin/activate
-fastapi dev
 
+
+backend
+python3 -m venv ./venv
+pip install fastapi uvicorn
+source .venv/bin/activate
+local python3 main.py
+prod use tmux
+    tmux new -s birds
+    tmux attach -t birds
+    tmux kill-session -t birds 
+
+    start or stop it
+    ctrl+b then d    to detatch while running
+
+
+
+frontend
 npm run dev 
+npm run build
